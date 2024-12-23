@@ -436,18 +436,15 @@ def criar_tabela_operacao_extra():
         try:
             cursor = conexao.cursor()
             query = """
-            CREATE TABLE IF NOT EXISTS operacao_extra (
+                CREATE TABLE IF NOT EXISTS operacao_extra (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                data DATE,
-                cliente VARCHAR(255),
-                qtde_faturamento FLOAT,
-                volume_recebido FLOAT,
-                volume_expedido FLOAT,
-                qtde_expedido FLOAT,
-                qtde_recebido FLOAT,
-                qtde_veiculos FLOAT,
-                qtde_ocupacao FLOAT,
-                taxa_estoque FLOAT
+                data_operacao DATE NOT NULL,
+                cliente VARCHAR(255) NOT NULL,
+                local VARCHAR(255) NOT NULL,
+                turno VARCHAR(255) NOT NULL,
+                tipo_operacao VARCHAR(255) NOT NULL,
+                valor_operacao FLOAT,
+                observacoes TEXT
             )
             """
             cursor.execute(query)
@@ -467,7 +464,7 @@ def registrar_operacao_extra(data, cliente, local, turno, tipo, valor, observaco
         try:
             cursor = conexao.cursor()
             query = """
-            INSERT INTO operacao_extra (data, cliente, qtde_faturamento, volume_recebido, volume_expedido, qtde_expedido, qtde_recebido, qtde_veiculos, qtde_ocupacao, taxa_estoque)
+            INSERT INTO operacao_extra (data_operacao , cliente, local, turno, tipo_operacao, valor_operacao, observacoes)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
             valores = (data, cliente, None, None, None, None, None, None, None, None)
