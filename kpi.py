@@ -171,8 +171,7 @@ if choice == 'Recebimento Veículo':  # Verifica se o usuário está na página 
     comercial@solution-log.com
     http://solution-log.com
     """)
-  
-    
+      
     st.write("Filtrar por Número de nota fiscal:")
     nota_fiscal = st.text_input("Digite o Número da nota fiscal")
 
@@ -453,7 +452,7 @@ def criar_tabela_operacao_extra():
             """
             cursor.execute(query)
             conexao.commit()
-            st.success("Tabela 'operacao_extra' criada/verificada com sucesso.")
+           
         except Exception as e:
             st.error(f"Erro ao criar tabela: {e}")
         finally:
