@@ -494,7 +494,7 @@ if choice == "Operação Extra":
     cliente = st.selectbox("Cliente", ["Selecione um cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA", "Laborlog", "PetLove"])
     local = st.selectbox("Centro de Distribuição", ["Selecione um Local", "CD 01", "CD 02", "CD 03", "CD 04", "Recife"])
     turno = st.selectbox("Turno", ["Selecione um Turno", "Matutino", "Vespertino", "Noturno"])
-    tipo_operacao = st.selectbox("Tipo de Operação", ['Selecione um tipo', 'Administrativa', 'Expedição', 'Recebimento', 'Recebimento Devolução', 'Transf. Interna', 'Inventário', 'Organização Estoque', 'Limpeza Armazém', 'Outros'])
+    tipo_operacao = st.selectbox("Tipo de Operação", ['Selecione um tipo', 'Administrativa', 'Recebimento e Expedição','Expedição', 'Recebimento', 'Recebimento Devolução', 'Transf. Interna', 'Inventário', 'Organização Estoque', 'Limpeza Armazém', 'Outros'])
     valor_operacao = st.text_input("R$ Valor da Operação", "R$ 0,00")
     observacoes = st.text_input("Observações")
 
