@@ -421,7 +421,7 @@ def obter_conexao():
         return mysql.connector.connect(
             host="solution_bi.mysql.dbaas.com.br",
             user="solution_bi",
-            password="J3aQqCZ5j32Eq@", # Use variável de ambiente para senha
+            password="J3aQqCZ5j32Eq@",  # Use variável de ambiente para senha
             database="solution_bi",
             port=3306
         )
@@ -436,7 +436,7 @@ def criar_tabela_operacao_extra():
         try:
             cursor = conexao.cursor()
             query = """
-                CREATE TABLE IF NOT EXISTS operacao_extra (
+            CREATE TABLE IF NOT EXISTS operacao_extra (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 data_operacao DATE NOT NULL,
                 cliente VARCHAR(255) NOT NULL,
@@ -444,12 +444,12 @@ def criar_tabela_operacao_extra():
                 turno VARCHAR(255) NOT NULL,
                 tipo_operacao VARCHAR(255) NOT NULL,
                 valor_operacao FLOAT,
-                observacoes TEXT
+                observacoes TEXT,
+                criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
             """
             cursor.execute(query)
             conexao.commit()
-           
         except Exception as e:
             st.error(f"Erro ao criar tabela: {e}")
         finally:
@@ -464,10 +464,10 @@ def registrar_operacao_extra(data, cliente, local, turno, tipo, valor, observaco
         try:
             cursor = conexao.cursor()
             query = """
-            INSERT INTO operacao_extra (data_operacao , cliente, local, turno, tipo_operacao, valor_operacao, observacoes)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO operacao_extra (data_operacao, cliente, local, turno, tipo_operacao, valor_operacao, observacoes)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
-            valores = (data, cliente, None, None, None, None, None, None, None, None)
+            valores = (data, cliente, local, turno, tipo, valor, observacoes)
             cursor.execute(query, valores)
             conexao.commit()
             st.success("Operação registrada com sucesso.")
@@ -498,7 +498,7 @@ if choice == "Operação Extra":
     valor_operacao = st.text_input("R$ Valor da Operação", "R$ 0,00")
     observacoes = st.text_input("Observações")
 
-    if st.button("Registrar Operação Extra", icon="📝"):
+    if st.button("Registrar Operação Extra"):
         if cliente != "Selecione um cliente" and local != "Selecione um Local" and turno != "Selecione um Turno" and tipo_operacao != "Selecione um tipo":
             registrar_operacao_extra(data_operacao, cliente, local, turno, tipo_operacao, valor_operacao, observacoes)
         else:
