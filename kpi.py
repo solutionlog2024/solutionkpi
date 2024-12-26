@@ -491,7 +491,7 @@ if choice == "Operação Extra":
     """)
 
     data_operacao = st.date_input("Data operação", value=datetime.date.today())
-    cliente = st.selectbox("Cliente", ["Selecione um cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA","Ravena","O&E Brasil", "Laborlog", "PetLove"])
+    cliente = st.selectbox("Cliente", ["Selecione um cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA","Ravena","O&E Brasil", "Laborlog", "PetLove","Outros"])
     local = st.selectbox("Centro de Distribuição", ["Selecione um Local", "CD 01", "CD 02", "CD 03", "CD 04", "Recife"])
     turno = st.selectbox("Turno", ["Selecione um Turno","Manhã e Noite", "Matutino", "Vespertino", "Noturno"])
     tipo_operacao = st.selectbox("Tipo de Operação", ['Selecione um tipo', 'Administrativa', 'Recebimento e Expedição','Expedição', 'Recebimento', 'Recebimento Devolução', 'Transf. Interna', 'Inventário', 'Organização Estoque', 'Limpeza Armazém', 'Outros'])
