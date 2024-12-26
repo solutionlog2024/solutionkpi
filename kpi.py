@@ -91,7 +91,7 @@ http://solution-log.com
 """)
     # Formulário de entrada de dados
     data = st.date_input("Selecione a data")
-    cliente = st.selectbox("Selecione o Cliente", ["Selecione um Cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA","PetLove","Laborlog"])
+    cliente = st.selectbox("Selecione o Cliente", ["Selecione um Cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA","PetLove","Ravena","O&E Brasil","Laborlog"])
     qtde_faturamento = st.number_input('Qtde Faturamento', min_value=0, max_value=1000, value=0, step=1)
     volume_recebido = st.text_input("Volume_Recebido(Ton)")
     volume_expedido = st.text_input("Volume_Expedido(Ton)")
@@ -228,7 +228,7 @@ if choice == 'Recebimento Veículo':  # Verifica se o usuário está na página 
     data_recebimento = st.date_input("Data do Recebimento")
     hora_recebimento = st.time_input("Hora do Recebimento", value=datetime.time(20, 30))
     recebedor = st.text_input("Recebedor")
-    cliente = st.selectbox("Selecione o Cliente", ["Selecione um Cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA", "PetLove"])
+    cliente = st.selectbox("Selecione o Cliente", ["Selecione um Cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA", "Ravena","O&E Brasil","PetLove","Laborlog"])
     tipo_veiculo = st.selectbox("Tipo Veículo", ["Selecione um tipo", "Carreta", "Caminhão Truck", "Caminhão Toco", "Rodotrem", "Caminhão 3/4", "Mini Caminhão", "VAN", "Carro Passeio", "Outros Não Listado"])
     tipo_operacao = st.selectbox("Tipo Operação", ["Selecione um tipo", "Recebimento", "Expedição", "Recebimento Devolução", "Transf. Interna"])
     ordem_chegada = st.select_slider("Qual a ordem de chegada do veículo?", options=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30])
