@@ -100,6 +100,7 @@ http://solution-log.com
     qtde_veiculos = st.number_input('Qtde Veículos Recebidos', min_value=0, max_value=1000, value=0, step=1)
     umidade=st.text_input("Umidade")
     temperatura=st.text_input("Temperatura")
+    tipo_ocupacao=st.selectbox("Tipo de Ocupação",["Selecione um tipo","Seca","Climatizada"]
     qtde_ocupacao = st.number_input('Qtde Ocupação')
     taxa_estoque = st.text_input("Taxa de Ocupação Estoque")
     taxa_acuracidade = st.text_input("Taxa de Acuracidade")
