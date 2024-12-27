@@ -4,9 +4,7 @@ import pandas as pd
 import datetime
 import matplotlib.pyplot as plt
 
-
 #________________________________________________Inicio tela 1  página inicial_______________________________________
-
 # Criando um Título Principal
 st.header("SISTEMA DE CONTROLE E REGISTROS ADMINISTRATIVO")
 st.sidebar.image('logo1.png', width=200)
@@ -26,8 +24,7 @@ def criar_tabela():
         database="solution_bi",
         port=3306
     )
-
-cursor = conexao.cursor()
+    cursor = conexao.cursor()
     query = """
     CREATE TABLE IF NOT EXISTS KPI_Clientes (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -78,7 +75,8 @@ Maceió - AL, 57081-780
 comercial@solution-log.com
 http://solution-log.com
 """)
-#__________________________________________________ Tabela de Registro KPI___________________________________________________________
+   
+    
 #________________________________________________Inicio tela 2 Registro KPI_______________________________________    
 # Página de Registro
 if choice == 'Registro KPI':
