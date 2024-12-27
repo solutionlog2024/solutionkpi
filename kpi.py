@@ -100,7 +100,7 @@ http://solution-log.com
     qtde_veiculos = st.number_input('Qtde Veículos Recebidos', min_value=0, max_value=1000, value=0, step=1)
     umidade=st.text_input("Umidade")
     temperatura=st.text_input("Temperatura")
-    tipo_ocupacao=st.selectbox("Tipo de Ocupação",["Selecione um tipo","Seca","Climatizada"]
+    tipo_ocupacao=st.selectbox("Tipo de Ocupação",["Selecione um tipo","Seca","Climatizada"])
     qtde_ocupacao = st.number_input('Qtde Ocupação')
     taxa_estoque = st.text_input("Taxa de Ocupação Estoque")
     taxa_acuracidade = st.text_input("Taxa de Acuracidade")
@@ -124,11 +124,11 @@ http://solution-log.com
             INSERT INTO KPI_Clientes (
                 data, cliente, qtde_faturamento, volume_recebido, volume_expedido,
                 qtde_expedido, qtde_recebido, qtde_veiculos, qtde_ocupacao, taxa_estoque
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
             valores = (
                 data, cliente, qtde_faturamento, volume_recebido, volume_expedido,
-                qtde_expedido, qtde_recebido, qtde_veiculos, qtde_ocupacao, taxa_estoque
+                qtde_expedido, qtde_recebido, qtde_veiculos,umidade,temperatura,tipo_ocupacao, qtde_ocupacao, taxa_estoque
             )
             cursor.execute(query, valores)
             conexao.commit()
