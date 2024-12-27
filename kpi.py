@@ -143,13 +143,17 @@ if choice == 'Registro KPI':
                     tipo_ocupacao, qtde_ocupacao, taxa_estoque, taxa_acuracidade
                 )
                 cursor.execute(query, valores)
-                conexao.commit()
-                st.success("Os dados foram enviados com sucesso!")
-            except mysql.connector.Error as err:
-                st.error(f"Erro ao salvar no banco de dados: {err}")
-            finally:
-                cursor.close()
-                conexao.close()
+    conexao.commit()
+    st.success("Os dados foram enviados com sucesso!")
+
+except mysql.connector.Error as err:
+    st.error(f"Erro ao interagir com o banco de dados: {err}")
+
+finally:
+    if 'cursor' in locals() and cursor is not None:
+        cursor.close()
+    if 'conexao' in locals() and conexao is not None:
+        conexao.close()
 #________________________________________________Inicio tela 3 Recebimento Veículo_______________________________________
 
 if choice == 'Recebimento Veículo':  # Verifica se o usuário está na página de Recebimento Veículo
