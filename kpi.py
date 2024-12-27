@@ -5,25 +5,27 @@ import datetime
 import matplotlib.pyplot as plt
 
 #________________________________________________Inicio tela 1  página inicial_______________________________________
-# Criando um Título Principal
-st.header("SISTEMA DE CONTROLE E REGISTROS ADMINISTRATIVO")
-st.sidebar.image('logo1.png', width=200)
-st.sidebar.header("Menu de Navegação")
-st.link_button("Sistema PETLOVE", url="https://petlove.streamlit.app/", icon="🌐")
 
-# Criando um menu lateral
-menu = ['Página Inicial', 'Registro KPI','Recebimento Veículo','Saída Veículo','Operação Extra','Base de Dados','Dashboard','Fale Conosco']
-choice = st.sidebar.selectbox("Selecione uma opção", menu)
+# Configurações de variáveis de ambiente (altere conforme necessário)
+os.environ['DB_HOST'] = "solution_bi.mysql.dbaas.com.br"
+os.environ['DB_USER'] = "solution_bi"
+os.environ['DB_PASSWORD'] = "J3aQqCZ5j32Eq@"
+os.environ['DB_NAME'] = "solution_bi"
+os.environ['DB_PORT'] = "3306"
+
+# Função para obter a conexão ao banco de dados
+def obter_conexao():
+    return mysql.connector.connect(
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME"),
+        port=int(os.getenv("DB_PORT", 3306))
+    )
 
 # Função para criar a tabela no banco de dados
 def criar_tabela():
-    conexao = mysql.connector.connect(
-        host="solution_bi.mysql.dbaas.com.br",
-        user="solution_bi",
-        password="J3aQqCZ5j32Eq@",
-        database="solution_bi",
-        port=3306
-    )
+    conexao = obter_conexao()
     cursor = conexao.cursor()
     query = """
     CREATE TABLE IF NOT EXISTS KPI_Clientes (
@@ -41,7 +43,7 @@ def criar_tabela():
         tipo_ocupacao VARCHAR(50),
         qtde_ocupacao INT,
         taxa_estoque INT,
-        taxa_acuracidade INT,
+        taxa_acuracidade INT
     )
     """
     cursor.execute(query)
@@ -52,7 +54,17 @@ def criar_tabela():
 # Chama a função para criar a tabela
 criar_tabela()
 
-# Página Home
+# Início da interface Streamlit
+st.header("SISTEMA DE CONTROLE E REGISTROS ADMINISTRATIVO")
+st.sidebar.image('logo1.png', width=200)
+st.sidebar.header("Menu de Navegação")
+st.link_button("Sistema PETLOVE", url="https://petlove.streamlit.app/", icon="🌐")
+
+menu = ['Página Inicial', 'Registro KPI', 'Recebimento Veículo', 'Saída Veículo', 'Operação Extra', 
+        'Base de Dados', 'Dashboard', 'Fale Conosco']
+choice = st.sidebar.selectbox("Selecione uma opção", menu)
+
+# Página Inicial
 if choice == 'Página Inicial':
     st.title("Bem-vindo ao 1º Sistema próprio de registros de dados de KPI's e recebimento de veículos da Solution Logistica")
     url = "https://www.youtube.com/watch?v=M-X7Z7TT_7M"
@@ -63,8 +75,8 @@ if choice == 'Página Inicial':
     Buscar novas oportunidades, ampliar nossos horizontes e abrir novos caminhos, está em nossa razão de ser. 
     Começamos a contar a nossa história em 2009, com um olhar do futuro, focado no presente.
     """)
-    st.image('sol1.png',width=1500)
-    st.image('sol2.png',width=1500)
+    st.image('sol1.png', width=1500)
+    st.image('sol2.png', width=1500)
     st.text("2024 - Aplicação desenvolvida por: Williams Rodrigues - Analista de Dados e Logística Tel.: (82) 98863-9394")
     st.sidebar.text("""
 Solution Logística
@@ -76,92 +88,67 @@ Maceió - AL, 57081-780
 comercial@solution-log.com
 http://solution-log.com
 """)
-        
-#________________________________________________Inicio tela 2 Registro KPI_______________________________________    
-# Página de Registro
+#__________________________________________________ Tabela de Registro KPI___________________________________________________________
+# Página Registro KPI
 if choice == 'Registro KPI':
     st.title("Preencha os campos abaixo com as informações da Operação 📝")
-    st.sidebar.text("""
-Solution Logística
-R. João Monteiro da Silva, 1600
-Tabuleiro do Martins, 
-Maceió - AL, 57081-780
-(81) 99977-8488 
-(81) 99203-3222
-comercial@solution-log.com
-http://solution-log.com
-""")
-    # Formulário de entrada de dados
     data = st.date_input("Selecione a data")
-    cliente = st.selectbox("Selecione o Cliente", ["Selecione um Cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA","PetLove","Ravena","O&E Brasil","Laborlog"])
+    cliente = st.selectbox("Selecione o Cliente", ["Selecione um Cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", 
+                                                   "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA", "PetLove", "Ravena", "O&E Brasil", "Laborlog"])
     qtde_faturamento = st.number_input('Qtde Faturamento', min_value=0, max_value=1000, value=0, step=1)
-    volume_recebido = st.text_input("Volume_Recebido(Ton)")
-    volume_expedido = st.text_input("Volume_Expedido(Ton)")
-    qtde_expedido = st.text_input("Qtde_Expedido(Cx)")
-    qtde_recebido = st.text_input("Qtde_Recebida(Cx)")
+    volume_recebido = st.text_input("Volume Recebido (Ton)")
+    volume_expedido = st.text_input("Volume Expedido (Ton)")
+    qtde_expedido = st.text_input("Qtde Expedida (Cx)")
+    qtde_recebido = st.text_input("Qtde Recebida (Cx)")
     qtde_veiculos = st.number_input('Qtde Veículos Recebidos', min_value=0, max_value=1000, value=0, step=1)
-    umidade=st.text_input("Umidade")
-    temperatura=st.text_input("Temperatura")
-    tipo_ocupacao=st.selectbox("Tipo de Ocupação",["Selecione um tipo","Seca","Climatizada"])
+    umidade = st.text_input("Umidade")
+    temperatura = st.text_input("Temperatura")
+    tipo_ocupacao = st.selectbox("Tipo de Ocupação", ["Selecione um tipo", "Seca", "Climatizada"])
     qtde_ocupacao = st.number_input('Qtde Ocupação')
     taxa_estoque = st.text_input("Taxa de Ocupação Estoque")
     taxa_acuracidade = st.text_input("Taxa de Acuracidade")
-        # Botão para envio
+    
+    # Botão para envio
     col1 = st.button("Enviar 📝")
-        
+    
     if col1:
         if cliente == "Selecione um Cliente":
             st.error("Por favor, selecione um cliente válido.")
         else:
-            # Salvar os dados no banco de dados
-            conexao = mysql.connector.connect(
-                host="solution_bi.mysql.dbaas.com.br",
-                user="solution_bi",
-                password="J3aQqCZ5j32Eq@",
-                database="solution_bi",
-                port=3306
-            )
-            cursor = conexao.cursor()
-            query = """
-            INSERT INTO KPI_Clientes (
-                data, cliente, qtde_faturamento, volume_recebido, volume_expedido,
-                qtde_expedido, qtde_recebido, qtde_veiculos, umidade, temperatura,tipo_ocupacao,qtde_ocupacao, taxa_estoque,taxa_acuracidade
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """
-            valores = (
-                data, cliente, qtde_faturamento, volume_recebido, volume_expedido,
-                qtde_expedido, qtde_recebido, qtde_veiculos,umidade,temperatura,tipo_ocupacao, qtde_ocupacao, taxa_estoque, taxa_acuracidade
-            )
-            cursor.execute(query, valores)
-            conexao.commit()
-            cursor.close()
-            conexao.close()
-            
-            st.success("Os dados foram enviados com sucesso!")
-            
-
-# Página Base Dados
-# Página Base Dados
-# Configuração da conexão ao banco de dados
-def obter_conexao():
-    return mysql.connector.connect(
-        host="solution_bi.mysql.dbaas.com.br",
-        user="solution_bi",
-        password="J3aQqCZ5j32Eq@",
-        database="solution_bi",
-        port=3306
-    )
-      
-# Função para tratar valores None e atribuir um valor padrão
-def tratar_valor(valor, tipo="string"):
-    if valor is None:
-        if tipo == "date":
-            return datetime.date(1900, 1, 1)  # Data padrão
-        elif tipo == "time":
-            return datetime.time(0, 0)  # Hora padrão
-        else:
-            return ""  # String vazia para valores textuais
-    return valor
+            try:
+                # Conversão de dados
+                volume_recebido = float(volume_recebido) if volume_recebido else 0.0
+                volume_expedido = float(volume_expedido) if volume_expedido else 0.0
+                qtde_expedido = int(qtde_expedido) if qtde_expedido else 0
+                qtde_recebido = int(qtde_recebido) if qtde_recebido else 0
+                umidade = int(umidade) if umidade else 0
+                temperatura = int(temperatura) if temperatura else 0
+                taxa_estoque = int(taxa_estoque) if taxa_estoque else 0
+                taxa_acuracidade = int(taxa_acuracidade) if taxa_acuracidade else 0
+                
+                # Inserção no banco
+                conexao = obter_conexao()
+                cursor = conexao.cursor()
+                query = """
+                INSERT INTO KPI_Clientes (
+                    data, cliente, qtde_faturamento, volume_recebido, volume_expedido,
+                    qtde_expedido, qtde_recebido, qtde_veiculos, umidade, temperatura, tipo_ocupacao,
+                    qtde_ocupacao, taxa_estoque, taxa_acuracidade
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                valores = (
+                    data, cliente, qtde_faturamento, volume_recebido, volume_expedido,
+                    qtde_expedido, qtde_recebido, qtde_veiculos, umidade, temperatura,
+                    tipo_ocupacao, qtde_ocupacao, taxa_estoque, taxa_acuracidade
+                )
+                cursor.execute(query, valores)
+                conexao.commit()
+                st.success("Os dados foram enviados com sucesso!")
+            except mysql.connector.Error as err:
+                st.error(f"Erro ao salvar no banco de dados: {err}")
+            finally:
+                cursor.close()
+                conexao.close()
 #________________________________________________Inicio tela 3 Recebimento Veículo_______________________________________
 
 if choice == 'Recebimento Veículo':  # Verifica se o usuário está na página de Recebimento Veículo
