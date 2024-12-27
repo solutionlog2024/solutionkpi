@@ -93,7 +93,7 @@ http://solution-log.com
 """)
     # Formulário de entrada de dados
     data = st.date_input("Selecione a data")
-    cliente = st.selectbox("Selecione o Cliente", ["Selecione um Cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA","PetLove","Laborlog"])
+    cliente = st.selectbox("Selecione o Cliente", ["Selecione um Cliente", "Melitta", "Dr. Oetker", "Cargill", "Santa Helena", "Fugini", "Peccin", "Wilson", "Dubar Bebidas", "EAF", "ASA","PetLove","Laborlog","Ravena","O&E Brasil"])
     qtde_faturamento = st.number_input('Qtde Faturamento', min_value=0, max_value=1000, value=0, step=1)
     volume_recebido = st.text_input("Volume_Recebido(Ton)")
     volume_expedido = st.text_input("Volume_Expedido(Ton)")
