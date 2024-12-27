@@ -4,6 +4,10 @@ import pandas as pd
 import datetime
 import matplotlib.pyplot as plt
 
+#Esticar a página para se adequar a tela
+st.set_page_config(layout="wide")
+
+
 #________________________________________________Inicio tela 1  página inicial_______________________________________
 # Criando um Título Principal
 st.header("SISTEMA DE CONTROLE E REGISTROS ADMINISTRATIVO")
