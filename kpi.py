@@ -3,6 +3,7 @@ import mysql.connector
 import pandas as pd
 import datetime
 import matplotlib.pyplot as plt
+import os
 
 #________________________________________________Inicio tela 1  página inicial_______________________________________
 
