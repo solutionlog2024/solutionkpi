@@ -36,8 +36,12 @@ def criar_tabela():
         qtde_expedido INT,
         qtde_recebido INT,
         qtde_veiculos INT,
+        umidade INT,
+        temperatura INT,
+        tipo_ocupacao VARCHAR(50),
         qtde_ocupacao INT,
-        taxa_estoque VARCHAR(50)
+        taxa_estoque INT,
+        taxa_acuracidade INT,
     )
     """
     cursor.execute(query)
@@ -72,9 +76,7 @@ Maceió - AL, 57081-780
 comercial@solution-log.com
 http://solution-log.com
 """)
-    
- 
-    
+        
 #________________________________________________Inicio tela 2 Registro KPI_______________________________________    
 # Página de Registro
 if choice == 'Registro KPI':
@@ -123,12 +125,12 @@ http://solution-log.com
             query = """
             INSERT INTO KPI_Clientes (
                 data, cliente, qtde_faturamento, volume_recebido, volume_expedido,
-                qtde_expedido, qtde_recebido, qtde_veiculos, qtde_ocupacao, taxa_estoque
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                qtde_expedido, qtde_recebido, qtde_veiculos, umidade, temperatura,tipo_ocupacao,qtde_ocupacao, taxa_estoque,taxa_acuracidade
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
             valores = (
                 data, cliente, qtde_faturamento, volume_recebido, volume_expedido,
-                qtde_expedido, qtde_recebido, qtde_veiculos,umidade,temperatura,tipo_ocupacao, qtde_ocupacao, taxa_estoque
+                qtde_expedido, qtde_recebido, qtde_veiculos,umidade,temperatura,tipo_ocupacao, qtde_ocupacao, taxa_estoque, taxa_acuracidade
             )
             cursor.execute(query, valores)
             conexao.commit()
